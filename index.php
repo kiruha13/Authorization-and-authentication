@@ -29,6 +29,7 @@
     <p>
     <input type="submit" name="submit" class="regbt" value="Войти">
     <a href="recover.php">Забыли пароль?</a>
+     <a href="reg.php">Еще нет аккаунта?</a>
   </div>
       <?php
     message();
