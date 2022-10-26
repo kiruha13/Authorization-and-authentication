@@ -5,7 +5,7 @@
 ## Ход работы
 ## 1. [Пользовательский интерфейс](https://www.figma.com/file/XeUCWHBwbvV7h9eH9o9MkQ/Web-Page)
 ## 2. [Пользовательские сценарии работы](https://imgur.com/a/tltvChs)
-## 3. API сервера и хореография
+## 3. [API сервера и хореография](https://imgur.com/a/KxFuDwA)
 ## 4. Структура базы данных
 | id | login | hash | secword |
 |:---|:------|:-----|:--------|
