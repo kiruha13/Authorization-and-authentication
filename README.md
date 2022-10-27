@@ -116,3 +116,45 @@
 <br> X-Powered-By: PHP/8.1.10
 
 ## 7. Важные части кода
+1.Подключение БД и защита от перехода на файлы проекта
+```php
+<?php
+  if (isset($_SERVER['HTTP_REFERER']) != "http://site/testreg.php" || isset($_SERVER['HTTP_REFERER']) != "http://site/save_user.php"
+    || isset($_SERVER['HTTP_REFERER']) != "http://site/change_pass.php" || isset($_SERVER['HTTP_REFERER']) != "http://site/recovery.php") {
+   http_response_code(403);
+      exit();
+}
+    $db = mysqli_connect ("localhost","root","mypass","testing");
+    ?>
+```
+2. Валидация пароля
+```php
+function chpas($value) {
+        if (strlen($value) < 16) {
+            $_SESSION['error'] = "Password less than 16 characters!";
+            return false;
+        }
+        else if (!preg_match("#^[A-Za-z0-9\-_]+$#",$value)) {
+            $_SESSION['error'] = "Password must consist of only appropriate symbols!";
+            return false;
+        }
+        return true;
+    }
+```
+3. Восстановление пароля
+```php
+  $hash = password_hash($password, PASSWORD_BCRYPT);
+    $scrwrd = md5($scrwrd."salt548974");
+
+        $check_scr = mysqli_query($db, "SELECT * FROM `users` WHERE `secword` = '$scrwrd' AND `login` = '$login'");
+        if (mysqli_num_rows($check_scr) == 0) {
+            $_SESSION['error'] = "Wrong secret word or login!";
+            header('Location: recover.php');
+            exit();
+        }
+
+        mysqli_query($db, "UPDATE `users` SET `hash` = '$hash' WHERE `secword` = '$scrwrd'");
+        $db->close();
+        $_SESSION['success'] = "Password restored!";
+        header('Location: index.php');
+```
